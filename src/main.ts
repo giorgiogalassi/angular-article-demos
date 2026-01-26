@@ -2,48 +2,32 @@ import { Component, signal } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
 
 import { ChoiceInputsDemoComponent } from './app/components/choice-input-demo';
-import { DateInputDemoComponent } from './app/components/date-input';
-import { DateComponent } from './app/components/date';
+import { DateInputDemoComponent } from './app/components/date-input-demo';
 import { NumberInputsDemoComponent } from './app/components/number-input-demo';
-import { NumberInputComponent } from './app/components/number-input';
-import { RadioComponent } from './app/components/radio';
 import { ReactiveFlowDemoComponent } from './app/components/reactive-flow-demo';
-import { ReactiveFlowComponent } from './app/components/reactive-flow';
 import { ReactiveProgrammaticComponent } from './app/components/reactive-programmatic';
-import { ReactiveUpdateComponent } from './app/components/reactive-update';
 import { SelectDemoComponent } from './app/components/select-demo';
-import { SelectComponent } from './app/components/select';
 import { SignalFlowDemoComponent } from './app/components/signal-flow-demo';
-import { SignalFlowComponent } from './app/components/signal-flow';
 import { TemplateDrivenProgrammaticComponent } from './app/components/template-driven-programmatic';
-import { TemplateUpdateComponent } from './app/components/template-update';
 
 @Component({
   selector: 'app-root',
   imports: [
     ChoiceInputsDemoComponent,
     DateInputDemoComponent,
-    DateComponent,
     NumberInputsDemoComponent,
-    NumberInputComponent,
-    RadioComponent,
     ReactiveFlowDemoComponent,
-    ReactiveFlowComponent,
     ReactiveProgrammaticComponent,
-    ReactiveUpdateComponent,
     SelectDemoComponent,
-    SelectComponent,
     SignalFlowDemoComponent,
-    SignalFlowComponent,
     TemplateDrivenProgrammaticComponent,
-    TemplateUpdateComponent,
   ],
   template: `
     <main class="demo">
 
       <header class="demo__header">
         <h1>Angular Forms – Part 2 Demos</h1>
-        <p>Data Flow and Working with Inputs</p>
+        <p>Interactive examples for <strong>Angular Forms – Part 2</strong>.</p>
       </header>
 
       <!-- Tabs -->
@@ -68,19 +52,15 @@ import { TemplateUpdateComponent } from './app/components/template-update';
 
           <h3>Text and number inputs</h3>
           <app-number-inputs-demo />
-          <app-number-input />
 
           <h3>Checkboxes and radio buttons</h3>
           <app-choice-inputs-demo />
-          <app-radio />
 
           <h3>Date inputs</h3>
           <app-date-input-demo />
-          <app-date />
 
           <h3>Select elements</h3>
           <app-select-demo />
-          <app-select />
         </section>
       }
 
@@ -91,11 +71,9 @@ import { TemplateUpdateComponent } from './app/components/template-update';
 
           <h3>Reactive Forms – synchronous flow</h3>
           <app-reactive-flow-demo />
-          <app-reactive-flow />
 
           <h3>Signal Forms – reactive synchronization</h3>
           <app-signal-flow-demo />
-          <app-signal-flow />
 
           <h3>Template-driven Forms – asynchronous flow</h3>
           <p>
@@ -112,11 +90,9 @@ import { TemplateUpdateComponent } from './app/components/template-update';
 
           <h3>Template-driven Forms</h3>
           <app-template-driven-programmatic />
-          <app-template-update />
 
           <h3>Reactive Forms</h3>
           <app-reactive-programmatic />
-          <app-reactive-update />
         </section>
       }
     </main>
