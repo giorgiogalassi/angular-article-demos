@@ -3,6 +3,11 @@ form {
   flex-direction: column;
   gap: 8px;
   max-width: 320px;
+
+  & label {
+    font-size: 14px;
+    display: block;
+  }
 }
 
 .error {

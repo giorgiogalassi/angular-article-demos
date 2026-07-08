@@ -4,6 +4,11 @@
   margin-bottom: 8px;
 }
 
+.error {
+  color: #b00020;
+  font-size: 13px;
+}
+
 .hint {
   font-size: 13px;
   color: #666;
