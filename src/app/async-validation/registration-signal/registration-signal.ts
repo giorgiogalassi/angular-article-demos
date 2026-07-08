@@ -1,10 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { debounce, form, FormField, required, validateHttp } from '@angular/forms/signals';
-
-interface UsernameCheckResult {
-  taken: boolean;
-}
+import { rxResource } from '@angular/core/rxjs-interop';
+import { debounce, form, FormField, required, validateAsync } from '@angular/forms/signals';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-async-registration-signal',
@@ -13,7 +10,7 @@ interface UsernameCheckResult {
   styleUrl: './registration-signal.css',
 })
 export class RegistrationSignal {
-  private http = inject(HttpClient);
+  private userService = inject(UserService);
 
   model = signal({ username: '' });
 
@@ -22,12 +19,21 @@ export class RegistrationSignal {
 
     debounce(path.username, 400);
 
-    validateHttp(path.username, {
-      request: (ctx) =>
-        ctx.value() ? `/api/check-username?q=${ctx.value()}` : undefined,
-      onSuccess: (result: UsernameCheckResult) =>
-        result.taken ? { kind: 'usernameTaken', message: 'Username is already taken.' } : undefined,
-      onError: () => ({ kind: 'usernameCheckFailed', message: 'Could not verify username availability.' }),
+    // Wraps the shared UserService in an rxResource so it can plug into
+    // validateAsync(), keeping the same username-check call used by the
+    // reactive validator and the template-driven directive.
+    validateAsync(path.username, {
+      params: (ctx) => ctx.value() || undefined,
+      factory: (params) =>
+        rxResource({
+          params,
+          stream: ({ params }) => this.userService.checkUsername(params),
+        }),
+      onSuccess: (isTaken) =>
+        isTaken ? { kind: 'usernameTaken', message: 'Username is already taken.' } : undefined,
+      // Swallow request failures, mirroring the catchError(() => of(null))
+      // fallback in unique-username.validator.ts / .directive.ts.
+      onError: () => undefined,
     });
   });
 }
