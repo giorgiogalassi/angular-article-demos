@@ -3,7 +3,7 @@
 <label>How would you rate your experience?</label>
 <app-rating-input-signal [formField]="f.rating" />
 
-@if (f.rating().invalid() && f.rating().touched()) {
+@if (f.rating().touched() && f.rating().getError('min')) {
   <span class="error">Please select a rating.</span>
 }
 
