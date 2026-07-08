@@ -1,0 +1,12 @@
+.star {
+  background: none;
+  border: none;
+  font-size: 28px;
+  color: #ccc;
+  cursor: pointer;
+  padding: 0 2px;
+}
+
+.star.active {
+  color: #f5a623;
+}

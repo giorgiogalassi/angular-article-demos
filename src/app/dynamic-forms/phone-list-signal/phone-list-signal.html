@@ -1,0 +1,17 @@
+<h2>Dynamic phone list — Signal Forms</h2>
+
+@for (phone of f.phones; track $index) {
+  <div class="row">
+    <input [formField]="phone" />
+    @if (phone().invalid() && phone().touched()) {
+      <span class="error">Phone number is required.</span>
+    }
+    <button type="button" (click)="remove($index)">Remove</button>
+  </div>
+}
+
+<button type="button" (click)="add()">Add phone</button>
+
+<p class="hint">
+  {{ f().valid() ? 'All phone numbers are valid.' : 'Some phone numbers are invalid.' }}
+</p>

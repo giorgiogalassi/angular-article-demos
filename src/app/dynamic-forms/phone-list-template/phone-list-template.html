@@ -1,0 +1,15 @@
+<h2>Dynamic phone list — Template-driven</h2>
+
+@for (phone of phones; track $index) {
+  <div class="row">
+    <input [name]="'phone_' + $index" [(ngModel)]="phones[$index]" />
+    <button type="button" (click)="remove($index)">Remove</button>
+  </div>
+}
+
+<button type="button" (click)="add()">Add phone</button>
+
+<p class="hint">
+  No aggregate validity here — Angular has no notion of this array as a form
+  unit.
+</p>

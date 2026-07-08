@@ -1,0 +1,16 @@
+label {
+  font-size: 14px;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.error {
+  color: #b00020;
+  font-size: 13px;
+  display: block;
+}
+
+.hint {
+  font-size: 13px;
+  color: #666;
+}

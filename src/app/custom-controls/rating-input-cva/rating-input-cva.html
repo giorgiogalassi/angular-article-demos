@@ -1,0 +1,11 @@
+@for (star of stars; track star) {
+  <button
+    type="button"
+    class="star"
+    [class.active]="star <= currentValue"
+    [disabled]="isDisabled"
+    (click)="select(star)"
+  >
+    ★
+  </button>
+}

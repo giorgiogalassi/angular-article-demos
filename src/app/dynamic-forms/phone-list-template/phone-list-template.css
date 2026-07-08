@@ -1,0 +1,11 @@
+.row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.hint {
+  font-size: 13px;
+  color: #666;
+  max-width: 420px;
+}

@@ -1,0 +1,22 @@
+<h2>Registration — Template-driven</h2>
+
+<form #f="ngForm" (ngSubmit)="submit(f)">
+  <label>
+    Username
+    <input name="username" [(ngModel)]="model.username" />
+  </label>
+
+  <label>
+    Email
+    <input name="email" [(ngModel)]="model.email" />
+  </label>
+
+  <label>
+    Password
+    <input name="password" type="password" [(ngModel)]="model.password" />
+  </label>
+
+  <button type="submit">Register</button>
+</form>
+
+<pre>{{ model | json }}</pre>

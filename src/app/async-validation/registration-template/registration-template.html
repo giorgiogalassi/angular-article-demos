@@ -1,0 +1,28 @@
+<h2>Async username check — Template-driven</h2>
+
+<form #f="ngForm">
+  <label>
+    Username
+    <input
+      name="username"
+      [(ngModel)]="username"
+      required
+      uniqueUsername
+      #usernameModel="ngModel"
+    />
+  </label>
+
+  @if (usernameModel.pending) {
+    <span class="pending">Checking availability...</span>
+  }
+  @if (usernameModel.invalid && usernameModel.touched && !usernameModel.pending) {
+    @if (usernameModel.errors?.['required']) {
+      <span class="error">Username is required.</span>
+    }
+    @if (usernameModel.errors?.['usernameTaken']) {
+      <span class="error">Username is already taken.</span>
+    }
+  }
+</form>
+
+<p class="hint">Try a username containing "taken" to see the async error.</p>

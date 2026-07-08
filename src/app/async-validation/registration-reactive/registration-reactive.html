@@ -1,0 +1,23 @@
+<h2>Async username check — Reactive</h2>
+
+<label>
+  Username
+  <input [formControl]="username" />
+</label>
+
+@if (username.pending) {
+  <span class="pending">Checking availability...</span>
+}
+@if (username.invalid && username.touched && !username.pending) {
+  @if (username.hasError('required')) {
+    <span class="error">Username is required.</span>
+  }
+  @if (username.hasError('usernameTaken')) {
+    <span class="error">Username is already taken.</span>
+  }
+}
+
+<p class="hint">
+  Validation runs on blur ("updateOn: 'blur'"). Try a username containing
+  "taken" to see the async error.
+</p>

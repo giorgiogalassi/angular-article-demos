@@ -1,0 +1,12 @@
+<h2>Custom control — ControlValueAccessor + Validator</h2>
+
+<form [formGroup]="form">
+  <label>How would you rate your experience?</label>
+  <app-rating-input-cva formControlName="rating" />
+
+  @if (form.controls.rating.hasError('ratingRequired') && form.controls.rating.touched) {
+    <span class="error">Please select a rating.</span>
+  }
+</form>
+
+<p class="hint">Rating: {{ form.value.rating }}</p>

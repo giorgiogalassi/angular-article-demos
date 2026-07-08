@@ -1,0 +1,22 @@
+<h2>Registration — Signal Forms</h2>
+
+<form (ngSubmit)="submit()">
+  <label>
+    Username
+    <input [formField]="f.username" />
+  </label>
+
+  <label>
+    Email
+    <input [formField]="f.email" />
+  </label>
+
+  <label>
+    Password
+    <input [formField]="f.password" type="password" />
+  </label>
+
+  <button type="submit" [disabled]="f().invalid()">Register</button>
+</form>
+
+<pre>{{ model() | json }}</pre>
