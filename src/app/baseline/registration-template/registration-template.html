@@ -3,20 +3,20 @@
 <form #f="ngForm" (ngSubmit)="submit(f)">
   <label>
     Username
-    <input name="username" [(ngModel)]="model.username" />
+    <input name="username" [(ngModel)]="model.username" required />
   </label>
 
   <label>
     Email
-    <input name="email" [(ngModel)]="model.email" />
+    <input name="email" [(ngModel)]="model.email" required email />
   </label>
 
   <label>
     Password
-    <input name="password" type="password" [(ngModel)]="model.password" />
+    <input name="password" type="password" [(ngModel)]="model.password" required minlength="8" />
   </label>
 
-  <button type="submit">Register</button>
+  <button type="submit" [disabled]="f.invalid">Register</button>
 </form>
 
 <pre>{{ model | json }}</pre>
