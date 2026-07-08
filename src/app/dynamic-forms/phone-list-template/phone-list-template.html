@@ -1,15 +1,24 @@
 <h2>Dynamic phone list — Template-driven</h2>
 
-@for (phone of phones; track $index) {
-  <div class="row">
-    <input [name]="'phone_' + $index" [(ngModel)]="phones[$index]" />
-    <button type="button" (click)="remove($index)">Remove</button>
-  </div>
-}
+<form #f="ngForm">
+  @for (phone of phones; track phone.id) {
+    <div class="row">
+      <input
+        [name]="'phone_' + phone.id"
+        [(ngModel)]="phone.value"
+        required
+        #phoneModel="ngModel"
+      />
+      @if (phoneModel.invalid && phoneModel.touched) {
+        <span class="error">Phone number is required.</span>
+      }
+      <button type="button" (click)="remove($index)">Remove</button>
+    </div>
+  }
 
-<button type="button" (click)="add()">Add phone</button>
+  <button type="button" (click)="add()">Add phone</button>
+</form>
 
 <p class="hint">
-  No aggregate validity here — Angular has no notion of this array as a form
-  unit.
+  {{ f.valid ? 'All phone numbers are valid.' : 'Some phone numbers are invalid.' }}
 </p>
