@@ -18,8 +18,8 @@
 }
 
 <p class="hint">
-  Uses <code>validateHttp()</code> against <code>/api/check-username</code>.
-  There is no backend wired up in this demo project, so the request itself
-  will fail — the pending/error wiring is what matters here. Point
-  <code>request</code> at a real endpoint to see it resolve end to end.
+  Uses <code>validateAsync()</code> with an <code>rxResource()</code> wrapping
+  the shared <code>UserService</code>, debounced 400ms via
+  <code>debounce()</code>. Try a username containing "taken" to see the async
+  error.
 </p>
