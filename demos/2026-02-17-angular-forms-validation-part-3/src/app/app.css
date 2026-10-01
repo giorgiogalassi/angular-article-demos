@@ -1,0 +1,26 @@
+main {
+  font-family: inherit;
+  margin: 0 auto;
+  max-width: 900px;
+  padding: 24px;
+}
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.nav-link {
+  color: #1d4ed8;
+  text-decoration: none;
+}
+
+.nav-link.active {
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+.router-content {
+  margin-top: 20px;
+}
