@@ -74,10 +74,11 @@ const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
         </div>
       }
       <p class="hint">
-        <code>order.value()</code> throws while the resource is in error, and the boundary catches it. But it is also
-        <code>undefined</code> while loading. Untick "loading guard" and reload the page: the child crashes on the first
-        load and the boundary keeps the fallback even after the data arrives. Without the guard, only the second retry
-        button works, because the first one resets while the resource is still reloading.
+        <code>order.value()</code> throws while the resource is in error, and the boundary catches it. But after an
+        error it is <code>undefined</code> while reloading. Untick "loading guard", make the request fail, reload, then
+        untick the failure and press the first retry: it resets while the resource is still reloading, the child
+        crashes on <code>undefined</code>, and the fallback comes straight back. The second retry waits, so it works
+        with or without the guard. (Without the guard, the very first page load hits the same crash.)
       </p>
     </section>
 
