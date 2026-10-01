@@ -1,0 +1,37 @@
+name: Build demos
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    outputs:
+      demos: ${{ steps.list.outputs.demos }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: list
+        run: echo "demos=$(ls -d demos/*/ | sed 's#/$##' | jq -R . | jq -cs .)" >> "$GITHUB_OUTPUT"
+
+  build:
+    needs: discover
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        demo: ${{ fromJson(needs.discover.outputs.demos) }}
+    defaults:
+      run:
+        working-directory: ${{ matrix.demo }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: ${{ matrix.demo }}/package-lock.json
+      - run: npm ci
+      - run: npx ng build
