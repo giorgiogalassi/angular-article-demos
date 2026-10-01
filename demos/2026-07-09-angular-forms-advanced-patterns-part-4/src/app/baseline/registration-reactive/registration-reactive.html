@@ -1,0 +1,22 @@
+<h2>Registration — Reactive</h2>
+
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <label>
+    Username
+    <input formControlName="username" />
+  </label>
+
+  <label>
+    Email
+    <input formControlName="email" />
+  </label>
+
+  <label>
+    Password
+    <input formControlName="password" type="password" />
+  </label>
+
+  <button type="submit" [disabled]="form.invalid">Register</button>
+</form>
+
+<pre>{{ form.value | json }}</pre>

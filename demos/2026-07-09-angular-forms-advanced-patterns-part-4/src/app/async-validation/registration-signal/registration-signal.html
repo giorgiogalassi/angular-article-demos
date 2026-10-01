@@ -1,0 +1,25 @@
+<h2>Async username check — Signal Forms</h2>
+
+<label>
+  Username
+  <input [formField]="f.username" />
+</label>
+
+@if (f.username().pending()) {
+  <span class="pending">Checking availability...</span>
+}
+@if (f.username().invalid() && f.username().touched() && !f.username().pending()) {
+  @if (f.username().getError('required')) {
+    <span class="error">Username is required.</span>
+  }
+  @if (f.username().getError('usernameTaken')) {
+    <span class="error">Username is already taken.</span>
+  }
+}
+
+<p class="hint">
+  Uses <code>validateAsync()</code> with an <code>rxResource()</code> wrapping
+  the shared <code>UserService</code>, debounced 400ms via
+  <code>debounce()</code>. Try a username containing "taken" to see the async
+  error.
+</p>

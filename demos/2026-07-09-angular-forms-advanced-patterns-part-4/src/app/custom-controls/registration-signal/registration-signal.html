@@ -1,0 +1,10 @@
+<h2>Custom control — FormValueControl</h2>
+
+<label>How would you rate your experience?</label>
+<app-rating-input-signal [formField]="f.rating" />
+
+@if (f.rating().touched() && f.rating().getError('min')) {
+  <span class="error">Please select a rating.</span>
+}
+
+<p class="hint">Rating: {{ model().rating }}</p>

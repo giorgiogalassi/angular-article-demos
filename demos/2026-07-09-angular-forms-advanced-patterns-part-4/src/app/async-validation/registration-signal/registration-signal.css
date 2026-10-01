@@ -1,0 +1,23 @@
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 14px;
+  max-width: 320px;
+}
+
+.pending {
+  color: #666;
+  font-size: 13px;
+}
+
+.error {
+  color: #b00020;
+  font-size: 13px;
+}
+
+.hint {
+  font-size: 13px;
+  color: #666;
+  max-width: 460px;
+}

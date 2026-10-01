@@ -1,0 +1,10 @@
+p {
+  max-width: 520px;
+  line-height: 1.5;
+}
+
+ul {
+  max-width: 520px;
+  line-height: 1.6;
+  padding-left: 20px;
+}
