@@ -1,0 +1,15 @@
+:root { font-family: system-ui, sans-serif; color: #1f2328; }
+body { margin: 0; }
+header { padding: 12px 16px; border-bottom: 1px solid #d0d7de; display: grid; gap: 8px; }
+header a { color: #0969da; }
+nav { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+nav span { color: #57606a; }
+.toggles { display: flex; gap: 16px; flex-wrap: wrap; }
+main { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 16px; padding: 16px; }
+@media (max-width: 720px) { main { grid-template-columns: 1fr; } }
+.timeline { background: #f6f8fa; border-radius: 8px; padding: 8px 12px; font-size: 14px; }
+.timeline div { padding: 2px 0; }
+.hint { color: #57606a; font-size: 14px; }
+.error, .nav-error { color: #cf222e; }
+.nav-error { margin: 12px 16px 0; }
+button { cursor: pointer; }
