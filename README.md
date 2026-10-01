@@ -15,6 +15,11 @@ Every folder in `demos/` is a **standalone project** with its own `package.json`
 | [`2026-02-17-angular-forms-validation-part-3`](demos/2026-02-17-angular-forms-validation-part-3) | 21 | [Angular Forms — Validation and Form State (Part 3)](https://medium.com/@giorgio.galassi/angular-forms-validation-and-form-state-part-3-0f2db5b4961e) | [StackBlitz](https://stackblitz.com/github/giorgiogalassi/angular-article-demos/tree/main/demos/2026-02-17-angular-forms-validation-part-3?file=src/app/app.ts) |
 | [`2026-07-09-angular-forms-advanced-patterns-part-4`](demos/2026-07-09-angular-forms-advanced-patterns-part-4) | 22 | [Angular Forms — Advanced Patterns (Part 4)](https://medium.com/@giorgio.galassi/angular-forms-advanced-patterns-part-4-1de423db0671) | [StackBlitz](https://stackblitz.com/github/giorgiogalassi/angular-article-demos/tree/main/demos/2026-07-09-angular-forms-advanced-patterns-part-4?file=src/app/app.ts) |
 
+## Known issues
+
+- **`2024-11-11-angular-defer` does not run on StackBlitz.** It builds locally and in CI, but on StackBlitz the SSR dev server crashes with `TypeError: Cannot set property DOMException of [object global] which has only a getter` (Angular 19.0 server polyfills vs. the WebContainer runtime). Run it locally until it's fixed.
+- **The first StackBlitz visit to a demo URL can hang on "Cloning repo from GitHub".** Reloading fixes it. After each push, open every changed demo link once so readers hit a warm import.
+
 ## Running a demo locally
 
 ```bash
