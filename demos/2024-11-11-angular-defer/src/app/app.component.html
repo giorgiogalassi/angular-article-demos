@@ -1,0 +1,16 @@
+<section class="container">
+  <header>
+    <img src="./assets/gdg-roma-citta-logo.png" alt="logo" routerLink="/"/>
+    <span #btn menu (click)="toggle()" class="material-symbols-outlined"> menu </span>
+  </header>
+
+  @defer (on interaction(btn)) {
+    <app-sidebar [(status)]="isClosed" />
+  }
+
+  <section class="body">
+    <router-outlet />
+  </section>
+
+  <footer class="footer"></footer>
+</section>
