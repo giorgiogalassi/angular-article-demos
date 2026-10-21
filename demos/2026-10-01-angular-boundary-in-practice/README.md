@@ -10,6 +10,7 @@ Every caught error is also reported to a custom `ErrorHandler` (`src/app/error-l
 2. **Several `@error` blocks with `when`.** Throw a `ChartError` and you get the chart-specific fallback. Throw a plain `Error`, then *Retry*, and you get the generic one. While a fallback is showing, the primary block doesn't re-render until `$reset()`.
 3. **An errored `resource()`.** `order.value()` throws while the resource is in error, and the boundary catches it. The *loading guard* checkbox shows why the guard (`isLoading() && !hasValue()`) matters. Untick it, make the request fail, reload, then untick the failure and press *Retry: reload(); $reset()*: it resets while the resource is still reloading, `value()` is `undefined`, the child crashes, and the fallback comes straight back. *Reload, wait, then $reset()* works with or without the guard. Without the guard, the very first page load hits the same crash.
 4. **Event handlers aren't caught.** The click error goes to `ErrorHandler.handleError`, and the boundary stays as it was.
+5. **No `@error` matches.** The inner boundary only handles a `ChartError`. Throw a plain `Error` and nothing matches, so Angular throws a `BoundaryError` (the original error is its `cause`) and the outer, page-level boundary catches it. Set the select back to *no error* before *Retry*.
 
 ## Gotcha
 

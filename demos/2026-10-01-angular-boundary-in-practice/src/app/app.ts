@@ -96,6 +96,38 @@ const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
       <p class="hint">The error goes to <code>ErrorHandler.handleError</code>, not to <code>&#64;error</code>. The boundary protects rendering, not interaction.</p>
     </section>
 
+    <!-- 5. No @error matches: the error travels up to the next boundary -->
+    <section>
+      <h2>5. No match: the error goes up a boundary</h2>
+      <select (change)="nestedFailure.set($any($event.target).value)">
+        <option value="none">no error</option>
+        <option value="chart">throw a ChartError</option>
+        <option value="other">throw a plain Error</option>
+      </select>
+
+      @boundary {
+        <div class="card">Page content around the chart.</div>
+        @boundary {
+          <app-chart-dashboard [failWith]="nestedFailure()" />
+        } @error (let err; retry = $reset; when isChartError(err)) {
+          <div class="fallback">
+            Chart fallback, retry in place: {{ err.message }}
+            <button (click)="retry()">Retry</button>
+          </div>
+        }
+      } @error {
+        <div class="fallback">
+          Page fallback: {{ $error.name }}, caused by: {{ causeOf($error) }}
+          <button (click)="$reset()">Retry</button>
+        </div>
+      }
+      <p class="hint">
+        The inner <code>&#64;error</code> only matches a <code>ChartError</code>. Throw a plain <code>Error</code> and
+        nothing matches: Angular throws a <code>BoundaryError</code> with the original as its <code>cause</code>, and the
+        outer boundary catches it. Pick "no error" before retrying.
+      </p>
+    </section>
+
     <section class="log">
       <h2>Error log</h2>
       @for (entry of errorLog.entries(); track $index) {
@@ -118,6 +150,7 @@ export class App {
   protected readonly dashboardFailure = signal<'none' | 'chart' | 'other'>('none');
   protected readonly failOrder = signal(false);
   protected readonly loadingGuard = signal(true);
+  protected readonly nestedFailure = signal<'none' | 'chart' | 'other'>('none');
 
   protected readonly order = resource({
     loader: async (): Promise<Order> => {
@@ -126,6 +159,10 @@ export class App {
       return { id: 1042, total: '€ 89.90' };
     },
   });
+
+  protected causeOf(error: Error): string {
+    return error.cause instanceof Error ? error.cause.message : String(error.cause);
+  }
 
   protected isChartError(error: unknown): boolean {
     return error instanceof ChartError;
