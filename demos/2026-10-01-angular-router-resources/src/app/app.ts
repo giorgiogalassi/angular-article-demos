@@ -12,6 +12,7 @@ import { DemoApi } from './demo-api';
         <span>Router Resources:</span>
         <a routerLink="/resources/users/1/posts">user 1</a>
         <a routerLink="/resources/users/2/posts">user 2</a>
+        <a routerLink="/resources/users/1/posts" [queryParams]="{ tab: 'all' }">user 1 ?tab=all</a>
         <span>Resolvers:</span>
         <a routerLink="/resolvers/users/1/posts">user 1</a>
         <a routerLink="/resolvers/users/2/posts">user 2</a>

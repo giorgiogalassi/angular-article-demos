@@ -1,4 +1,4 @@
-import { inject, resource } from '@angular/core';
+import { computed, inject, resource } from '@angular/core';
 import { nonBlocking, ResolveFn, Routes } from '@angular/router';
 import { DemoApi, Post, User } from './demo-api';
 import { Home } from './pages/home';
@@ -16,16 +16,21 @@ const routerResourcesRoutes: Routes = [
     component: UserProfile,
     resources: (ctx) => {
       const api = inject(DemoApi);
+      // Read the key, not the whole params object. On 22.2.3 a plain `() => ctx.params()['id']`
+      // still reruns the loaders on every navigation of this route (a query param or fragment
+      // change is enough). A computed() doesn't. Upstream fix: angular/angular@fe02c34c3c, not
+      // released as of 22.2.3.
+      const id = computed(() => ctx.params()['id']);
       return {
         // blocking (default): navigation waits, the input receives the value
         user: resource({
-          params: () => ctx.params()['id'], // read the key, not the whole params object
+          params: id,
           loader: ({ params: id, abortSignal }) => api.getUser(id, abortSignal),
         }),
         // non-blocking: navigation completes, the input receives the Resource
         activity: nonBlocking(
           resource({
-            params: () => ctx.params()['id'],
+            params: id,
             loader: ({ params: id, abortSignal }) => api.getActivity(id, abortSignal),
           }),
         ),
@@ -37,9 +42,10 @@ const routerResourcesRoutes: Routes = [
         component: UserPosts,
         resources: (ctx) => {
           const api = inject(DemoApi);
+          const id = computed(() => ctx.params()['id']);
           return {
             posts: resource({
-              params: () => ctx.params()['id'],
+              params: id,
               loader: ({ params: id, abortSignal }) => api.getPosts(id, abortSignal),
             }),
           };
