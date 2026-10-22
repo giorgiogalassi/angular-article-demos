@@ -1,6 +1,6 @@
 # Router Resources vs Resolvers (Angular 22.2)
 
-Demo for the article *Angular v22.2: Router Resources vs Resolvers*. Router Resources are `@developerPreview 22.2`.
+Demo for the article *Angular v22.2: Router Resources vs Resolvers*. Router Resources are `@developerPreview 22.2`. Pinned to Angular 22.2.3.
 
 Both routes load the same data with fixed delays (`user` 800ms on the parent, `posts` 800ms on a child route, `activity` 1500ms). The timeline on the right logs when each request starts and ends.
 
@@ -11,6 +11,7 @@ Both routes load the same data with fixed delays (`user` 800ms on the parent, `p
 3. **Failures.** Tick *fail activity*: the navigation still completes and the template shows `error()`. Tick *fail user*: the router cancels the navigation with `NavigationError` and the previous page stays.
 4. **reload() without re-navigating.** *Reload user* calls `ActivatedRoute.resources['user'].reload()`. No guards rerun, no route is rematched.
 5. **A failed reload on a blocking resource.** Tick *fail user*, then *Reload user*. The input has no value to receive, so `ResourceValueError` is thrown on the active page. The `@boundary` around `<router-outlet>` in `app.ts` catches it. `$reset()` alone fails again because the resource is still in error. Untick *fail user* and use *Reload failed resources, then $reset()*.
+6. **Same id, no reload.** Open *Router Resources → user 1*, then *user 1 ?tab=all*. Only a query param changed, so the timeline stays empty: no loader reruns. The routes pass `computed(() => ctx.params()['id'])` as `params`. On 22.2.3 a plain `() => ctx.params()['id']` would rerun every loader here; the fix ([angular/angular@fe02c34c3c](https://github.com/angular/angular/commit/fe02c34c3c)) is merged on the 22.2 branch but not released yet.
 
 Key files: `src/app/app.routes.ts` (both route styles), `src/app/app.config.ts` (`withRouterResources()`), `src/app/pages/user-profile.ts`.
 
